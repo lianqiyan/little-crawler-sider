@@ -3,6 +3,7 @@ import numpy as np
 from bs4 import BeautifulSoup
 import re
 import operator
+import matplotlib.pyplot as plt
 
 
 def get_info(url, score, year, country):
@@ -25,15 +26,16 @@ def get_info(url, score, year, country):
         score.append(float(score_h[i].text))
 
 
-def create_dic(country):
+def create_dic(label):
     w_dic = {}
-    for word in country:
+    for word in label:
         if word in w_dic:
             w_dic[word] += 1
         else:
             w_dic[word] = 1
-    for key, value in sorted(w_dic.items(), key=operator.itemgetter(1)):
-        print(key, value)
+    # for key, value in sorted(w_dic.items(), key=operator.itemgetter(1)):
+    #     print(key, value)
+    return w_dic
 
 
 # title = []
@@ -56,8 +58,29 @@ for i in range(0, 10):
         url = normal + front + str(i*25) + end
     get_info(url, score, year, country)
 
-# print(score)
-create_dic(country)
+
+c_num = create_dic(country)
+y_num = create_dic(year)
+
+dictionary = plt.figure()
+
+
+plt.bar(range(len(c_num)), c_num.values(), align='center')
+plt.xticks(range(len(c_num)), c_num.keys())
+plt.show()
+
+x = []
+for data_dict in y_num.values():
+    x.append(data_dict)
+
+plt.plot(x)
+plt.show()
+
+# plt.legend(y_num.keys())
+plt.show()
+
+# print(c_num.get('value'))
+
 # print(country[-1],country[-2])
 # for i in range(0, len(score) - 1):
 #     print(score[i])
