@@ -1,15 +1,17 @@
 import requests
-import numpy as np
+import seaborn as sns
 from bs4 import BeautifulSoup
 import re
 import operator
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def get_info(url, score, year, country):
     html_t = requests.get(url).text
     soup_t = BeautifulSoup(html_t, 'html.parser')
     # title_h = soup_t.findAll('span', {'class': 'title'})
+    score_h = soup_t.findAll('span', {'class': 'rating_num'})
     score_h = soup_t.findAll('span', {'class': 'rating_num'})
     p_h = soup_t.findAll('br')
 
@@ -33,8 +35,8 @@ def create_dic(label):
             w_dic[word] += 1
         else:
             w_dic[word] = 1
-    # for key, value in sorted(w_dic.items(), key=operator.itemgetter(1)):
-    #     print(key, value)
+    for key, value in sorted(w_dic.items(), key=operator.itemgetter(1)):
+        print(key, value)
     return w_dic
 
 
@@ -62,19 +64,16 @@ for i in range(0, 10):
 c_num = create_dic(country)
 y_num = create_dic(year)
 
-dictionary = plt.figure()
 
-
-plt.bar(range(len(c_num)), c_num.values(), align='center')
-plt.xticks(range(len(c_num)), c_num.keys())
-plt.show()
+# plt.bar(range(len(c_num)), c_num.values(), align='center')
+# plt.xticks(range(len(c_num)), c_num.keys())
+# plt.show()
 
 x = []
-for data_dict in y_num.values():
+for data_dict in c_num.values():
     x.append(data_dict)
-
-plt.plot(x)
-plt.show()
+sns.distplot(x,  kde=False)
+sns.plt.show()
 
 # plt.legend(y_num.keys())
 plt.show()
