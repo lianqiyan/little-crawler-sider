@@ -82,7 +82,7 @@ sy_n = temp2
 del temp1, temp2
 color = list(np.random.normal(20, 20, len(sc_n)))
 
-colory = np.random.normal(20, 10, len(s_year))
+colory = np.random.normal(30, 20, len(s_year))
 
 df = pd.DataFrame({'country': s_country,
                    'number': sc_n,
@@ -95,6 +95,7 @@ yf = pd.DataFrame({'year': s_year,
 ryf = pandas2ri.py2ri(yf)
 # print(type(rdf))
 
+
 pp = ggplot2.ggplot(rdf) + \
      ggplot2.aes_string(x='country', y='number', fill='color') + \
      ggplot2.geom_bar(stat="identity")
@@ -104,11 +105,12 @@ pp.plot()
 gp = ggplot2.ggplot(ryf)
 
 pp = gp + \
-     ggplot2.aes_string(x='year', y='number', group=1, col='factor(colory)') + \
+     ggplot2.aes_string(x='year', y='number', group=1, col='color') + \
      ggplot2.geom_point(colour="grey50", size=4) + \
      ggplot2.geom_point(size=2.5) + \
-     ggplot2.geom_line() +\
+     ggplot2.geom_line() 
 pp.plot()
+
 
 
 vv = ggplot2.ggplot(rdf) + \
@@ -116,4 +118,5 @@ vv = ggplot2.ggplot(rdf) + \
      ggplot2.geom_bar(width=1) +\
      ggplot2.coord_polar(theta='number')
 vv.plot()
+
 
