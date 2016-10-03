@@ -7,6 +7,8 @@ import pandas as pd
 from rpy2.robjects.lib import ggplot2
 from rpy2.robjects import pandas2ri
 pandas2ri.activate()
+from rpy2.robjects.packages import importr
+import rpy2.robjects as robjects
 
 
 def get_info(url, score, year, country):
@@ -79,44 +81,47 @@ for i in index:
     temp2.append(sy_n[i])
 s_year = temp1
 sy_n = temp2
-del temp1, temp2
+
+
 color = list(np.random.normal(20, 20, len(sc_n)))
 
-colory = np.random.normal(30, 20, len(s_year))
+colory = list(np.random.uniform(0, 80, len(s_year)))
 
-df = pd.DataFrame({'country': s_country,
-                   'number': sc_n,
-                   'color': color})
+df = pd.DataFrame({'Country': s_country,
+                   'Number': sc_n,
+                   'Color': color})
 rdf = pandas2ri.py2ri(df)
 
-yf = pd.DataFrame({'year': s_year,
-                   'number': sy_n,
-                   'color': colory})
+yf = pd.DataFrame({'Year': s_year,
+                   'Number': sy_n,
+                   'Color': colory})
 ryf = pandas2ri.py2ri(yf)
 # print(type(rdf))
 
+grdevices = importr('grDevices')
+# grdevices.png(file="E:/python code/crawler/file.png", width=1024, height=720)
+# pp = ggplot2.ggplot(rdf) + \
+#      ggplot2.aes_string(x='Country', y='Number', fill='Country') + \
+#      ggplot2.geom_bar(stat="identity") + \
+#      ggplot2.ggtitle('The Number of Movies in Countries')
+# pp.plot()
+#
+# grdevices.png(file="E:/python code/crawler/file2.png", width=1400, height=720)
+# gp = ggplot2.ggplot(ryf)
+#
+# pp = gp + \
+#      ggplot2.aes_string(x='Year', y='Number', group=1, col='Color') + \
+#      ggplot2.geom_point(stat="identity", colour="grey50", size=5.5) + \
+#      ggplot2.geom_point(size=5) + \
+#      ggplot2.geom_line() + \
+#      ggplot2.ggtitle('The Number of Movies in Years')
+# pp.plot()
 
-pp = ggplot2.ggplot(rdf) + \
-     ggplot2.aes_string(x='country', y='number', fill='color') + \
-     ggplot2.geom_bar(stat="identity")
-pp.plot()
-
-
-gp = ggplot2.ggplot(ryf)
-
-pp = gp + \
-     ggplot2.aes_string(x='year', y='number', group=1, col='color') + \
-     ggplot2.geom_point(colour="grey50", size=4) + \
-     ggplot2.geom_point(size=2.5) + \
-     ggplot2.geom_line() 
-pp.plot()
-
-
-
+grdevices.png(file="E:/python code/crawler/file3.png", width=1024, height=720)
 vv = ggplot2.ggplot(rdf) + \
-     ggplot2.aes_string(x='country', fill='factor(color)') +\
-     ggplot2.geom_bar(width=1) +\
-     ggplot2.coord_polar(theta='number')
+     ggplot2.aes_string(x='Country', fill='factor(Color)') +\
+     ggplot2.geom_bar(width=1) + \
+     robjects.r.coord_polar(theta="Number")
 vv.plot()
 
 
