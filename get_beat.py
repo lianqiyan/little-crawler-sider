@@ -10,7 +10,6 @@ def get_link(main):
     image_link = imObj.findAll("a", {"class": "img_album_btn"})
     return image_link
 
-
 def get_page(p_link):
     html2 = urlopen(p_link)
     imObj2 = BeautifulSoup(html2.read(), "html.parser")
@@ -22,7 +21,6 @@ def get_page(p_link):
     page = page[0]
     return page
 
-
 def download_img(tt):
     html3 = urlopen(tt)
     imObj3 = BeautifulSoup(html3.read(), "html.parser")
@@ -31,7 +29,6 @@ def download_img(tt):
     temp = (m_link[0]["src"])
     imh = m_html + temp
     return imh
-
 
 url = "http://www.eouok.com.cn/a/toupai/"
 m_html = 'http://www.eouok.com.cn'
