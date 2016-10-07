@@ -11,8 +11,6 @@ def get_img(page_link):
         p_html = BeautifulSoup(r_p, 'html.parser')
         s_m = p_html.findAll('a', {'href': re.compile("http://weibo\.cn/mblog/oripic\?[&0-9A-Za-z=\-?]+")})
         a_m = p_html.findAll('a', {'href': re.compile("http://weibo\.cn/mblog/picAll/[&0-9A-Za-z=\-?]+")})
-        # print(a_m)
-        # print(s_m)
         s_mm = []
         for t1 in s_m:
             t1 = t1["href"]
@@ -41,8 +39,7 @@ def clean(t_link):
             cle.append(t)
     return cle
 
-        # http://ww2.sinaimg.cn/large/7c9b551fgw1f4ij3retffj20k20qon07.jpg
-url = "http://weibo.cn/u/2090554655?filter=1"
+url = "http://weibo.cn/her weibo'?filter=1"
 cook = dict(cookies='your cookies')
 with session() as c:
     response = c.get(url, cookies=cook).content
@@ -67,6 +64,3 @@ with session() as c:
             x += 1
 
 
-    # s_m = Bo.findAll('a', {'href': re.compile("http://weibo\.cn/mblog/oripic\?[&0-9A-Za-z=\-?]+")})
-    # a_m = Bo.findAll('a', {'href': re.compile("http://weibo\.cn/mblog/picAll/[&0-9A-Za-z=\-?]+")})
-    # print(a_m)
